@@ -25,6 +25,19 @@ function App() {
 	return (
 		<div className='App'>
 			<h1>Memory game</h1>
+			<div className='card-grid'>
+				{cards.map((card) => {
+					return (
+						<div key={card.id} className='card'>
+							<div>
+								<img className='front' src={card.src} alt='card front' />
+								<img className='back' src='/img/cover.png' alt='card back' />
+							</div>
+						</div>
+					);
+				})}
+			</div>
+
 			<button onClick={shuffle}>Start</button>
 		</div>
 	);
