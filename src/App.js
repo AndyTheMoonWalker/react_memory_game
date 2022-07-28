@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import SingleCard from './components/single-card.component';
 const cardImages = [
-	{ src: '/img/helmet-1.png' },
-	{ src: '/img/potion-1.png' },
-	{ src: '/img/ring-1.png' },
-	{ src: '/img/scroll-1.png' },
-	{ src: '/img/shield-1.png' },
-	{ src: '/img/sword-1.png' },
+	{ src: '/img/helmet-1.png', match: false },
+	{ src: '/img/potion-1.png', match: false },
+	{ src: '/img/ring-1.png', match: false },
+	{ src: '/img/scroll-1.png', match: false },
+	{ src: '/img/shield-1.png', match: false },
+	{ src: '/img/sword-1.png', match: false },
 ];
 
 function App() {
@@ -37,23 +37,39 @@ function App() {
 
 	useEffect(() => {
 		if (choiceOne && choiceTwo) {
-			const message = choiceOne.src === choiceTwo.src ? 'Match' : 'Not match';
-			console.log(message);
-			resetTurn();
+			if (choiceOne.src === choiceTwo.src) {
+				setCards((prevCards) => {
+					return prevCards.map((card) => {
+						if (card.src === choiceOne.src) {
+							return { ...card, match: true };
+						} else {
+							return card;
+						}
+					});
+				});
+				resetTurn();
+			} else {
+				setTimeout(() => resetTurn(), 1000);
+			}
 		}
 	}, [choiceOne, choiceTwo]);
+
 	return (
 		<div className='App'>
 			<h1>Memory game</h1>
+			<button onClick={shuffle}>Start a new game</button>
 			<div className='card-grid'>
 				{cards.map((card) => {
 					return (
-						<SingleCard key={card.id} card={card} clickHandler={clickHandler} />
+						<SingleCard
+							key={card.id}
+							card={card}
+							clickHandler={clickHandler}
+							flipped={card === choiceOne || card === choiceTwo || card.match}
+						/>
 					);
 				})}
 			</div>
-
-			<button onClick={shuffle}>Start</button>
 		</div>
 	);
 }
