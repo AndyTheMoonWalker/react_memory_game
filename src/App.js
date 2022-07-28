@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './App.css';
+import SingleCard from './components/single-card.component';
 const cardImages = [
 	{ src: '/img/helmet-1.png' },
 	{ src: '/img/potion-1.png' },
@@ -27,14 +28,7 @@ function App() {
 			<h1>Memory game</h1>
 			<div className='card-grid'>
 				{cards.map((card) => {
-					return (
-						<div key={card.id} className='card'>
-							<div>
-								<img className='front' src={card.src} alt='card front' />
-								<img className='back' src='/img/cover.png' alt='card back' />
-							</div>
-						</div>
-					);
+					return <SingleCard key={card.id} card={card} />;
 				})}
 			</div>
 
