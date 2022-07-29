@@ -23,6 +23,8 @@ function App() {
 			.map((card) => ({ ...card, id: Math.random() }));
 		setCards(shuffledCards);
 		setTurns(0);
+		setChoiceOne(null);
+		setChoiceTwo(null);
 	};
 
 	const clickHandler = (card) => {
@@ -56,6 +58,10 @@ function App() {
 		}
 	}, [choiceOne, choiceTwo]);
 
+	useEffect(() => {
+		shuffle();
+	}, []);
+
 	return (
 		<div className='App'>
 			<h1>Memory game</h1>
@@ -73,6 +79,7 @@ function App() {
 					);
 				})}
 			</div>
+			<p>Turns: {turns}</p>
 		</div>
 	);
 }
