@@ -1,8 +1,10 @@
 import './single-card.style.css';
 
-function SingleCard({ card, clickHandler, flipped }) {
+function SingleCard({ card, clickHandler, flipped, disabled }) {
 	const choiceHandler = () => {
-		clickHandler(card);
+		if (!disabled) {
+			clickHandler(card);
+		}
 	};
 	return (
 		<div className='card'>
